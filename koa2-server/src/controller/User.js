@@ -1,4 +1,5 @@
 const BasicController = require('./BasicController')
+const { sign } = require('../middleware/jwt')
 
 class User extends BasicController {
 
@@ -6,7 +7,11 @@ class User extends BasicController {
         userName,
         password
     }) {
-        return this.successRes()
+        return this.successRes({
+            token: sign({
+                name: 'chendl'
+            })
+        })
     }
 }
 
