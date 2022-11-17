@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@koa/router": "^12.0.0",
+    "@prisma/client": "^4.6.1",
+    "ajv": "^8.11.2",
     "connect-history-api-fallback": "^2.0.0",
     "http-proxy-middleware": "^2.0.6",
     "jsonwebtoken": "^8.5.1",
@@ -19,6 +21,7 @@
     "koa-static": "^5.0.0",
     "koa-unless": "^1.0.7",
     "koa2-connect": "^1.0.2",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "prisma": "^4.6.1"
   }
 }

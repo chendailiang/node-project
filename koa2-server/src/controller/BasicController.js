@@ -1,6 +1,6 @@
 class ResModel {
-    constructor({ errno, data, message }) {
-        this.errno = errno
+    constructor({ code, data, message }) {
+        this.code = code
         if (data) {
             this.data = data
         }
@@ -14,18 +14,18 @@ class ResModel {
 class BasicController {
     successRes(data = {}) {
         return new ResModel({
-            errno: 0,
+            code: 0,
             data: data
         })
     }
 
-    errorRes({ errno, message }) {
+    errorRes({ code, message }) {
         return new ResModel({
-            errno,
+            code,
             message
         })
     }
 }
 
 
-module.exports=BasicController
+module.exports = BasicController

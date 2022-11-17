@@ -16,9 +16,9 @@ app.use(
 app.use(
     jwt({
         screct: 'abcd',
-        expiresIn: 2 * 60 * 60
+        expiresIn: '7d'
     }).unless({
-        path: ['/api/user/logins']
+        path: ['/api/user/login']
     })
 )
 
