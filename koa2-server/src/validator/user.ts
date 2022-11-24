@@ -1,5 +1,5 @@
 
-const _validate = require('./_validate')
+import _validate from './_validate'
 
 // 校验规则
 const SCHEMA = {
@@ -26,4 +26,4 @@ function userValidate(data = {}) {
     return _validate(SCHEMA, data)
 }
 
-module.exports = userValidate
+export default userValidate

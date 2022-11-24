@@ -1,13 +1,13 @@
-const Ajv = require('ajv')
+import Ajv from 'ajv'
+
 const ajv = new Ajv({
     allErrors: true // 输出所有的错误（比较慢）
 })
 
-function validate(schema, data={}){
+function validate(schema:any, data={}){
     const valid = ajv.validate(schema, data)
     if(!valid){
-        return ajv.errors[0]
+        return ajv.errors?.[0]
     }
 }
-
-module.exports = validate
+export default validate

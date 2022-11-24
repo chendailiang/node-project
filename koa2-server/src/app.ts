@@ -1,9 +1,10 @@
-const Koa = require('koa');
-const proxy = require('./proxy');
-const routes = require('./routes');
-const static = require('./static');
-const { jwt } = require('./middleware/jwt')
-const { koaBody } = require('koa-body');
+
+import Koa from 'koa'
+import proxy from './proxy'
+import routes from './routes'
+import staticServer from './staticServer';
+import jwt from './middleware/jwt';
+import { koaBody } from 'koa-body'
 
 const app = new Koa();
 
@@ -14,7 +15,7 @@ app.use(
 )
 
 app.use(
-    jwt({
+    jwt.verify({
         screct: 'abcd',
         expiresIn: '7d'
     }).unless({
@@ -23,7 +24,7 @@ app.use(
 )
 
 routes(app);
-static(app);
+staticServer(app);
 proxy(app);
 
 

@@ -1,6 +1,12 @@
-module.exports = {
-    genValidator: (validatefn) => {
-        async function validator(ctx, next) {
+
+import { Context, Next } from 'koa'
+import { ErrorObject } from 'ajv'
+
+export type validatefnType = (data: any) => ErrorObject
+
+export default {
+    genValidator: (validatefn: validatefnType) => {
+        async function validator(ctx: Context, next: Next) {
             const data = ctx.request.body
             const error = validatefn(data)
             if (error) {

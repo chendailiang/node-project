@@ -1,16 +1,24 @@
-const jsonwebtoken = require('jsonwebtoken');
-const unless = require('koa-unless')
+import jsonwebtoken, { JwtPayload } from 'jsonwebtoken';
+import unless from 'koa-unless'
+import { Context, Next } from 'koa'
 
 class JWT {
+    static _instance: JWT;
+    screct: string;
+    expiresIn: string;
+
     constructor({
         screct,
         expiresIn
+    }: {
+        screct: string,
+        expiresIn: string
     }) {
         this.screct = screct;
         this.expiresIn = expiresIn
     }
 
-    static getInstance(opts) {
+    static getInstance(opts?: any) {
         if (!JWT._instance) {
             JWT._instance = new JWT(opts)
         }
@@ -20,17 +28,17 @@ class JWT {
 }
 
 
-module.exports = {
-    jwt: (opts = {}) => {
+export default {
+    verify: (opts = {}) => {
         let jwtItem = JWT.getInstance(opts);
-        const middleware = async (ctx, next) => {
+        const middleware = async (ctx: Context, next: Next) => {
             let token = ctx.headers["authorization"]?.split('Bearer ')[1];
             if (token) {
                 // 如果有token的话解析
                 try {
-                    const tokenItem = jsonwebtoken.verify(token, jwtItem.screct)
+                    const tokenItem = (jsonwebtoken.verify(token, jwtItem.screct)) as JwtPayload
                     const nowTime = new Date().getTime();
-                    if (nowTime <= (tokenItem.exp * 1000)) {
+                    if (nowTime <= (tokenItem?.exp as number * 1000)) {
                         await next()
                     } else {
                         ctx.code = 401;
@@ -58,7 +66,7 @@ module.exports = {
         middleware.unless = unless;
         return middleware;
     },
-    sign: (info) => {
+    sign: (info: any) => {
         let jwtItem = JWT.getInstance();
         return jsonwebtoken.sign(info, jwtItem.screct, {
             expiresIn: jwtItem.expiresIn

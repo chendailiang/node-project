@@ -1,8 +1,9 @@
 
-const { createProxyMiddleware } = require('http-proxy-middleware');
-const koaConnect = require('koa2-connect')
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import koaConnect from 'koa-connect';
+import koa from 'koa'
 
-const proxy = (app) => {
+const proxy = (app: koa) => {
     app.use(
         koaConnect(
             createProxyMiddleware('/api', {
@@ -13,5 +14,4 @@ const proxy = (app) => {
     )
 }
 
-
-module.exports = proxy
+export default proxy;

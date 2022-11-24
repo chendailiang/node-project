@@ -1,5 +1,14 @@
 class ResModel {
-    constructor({ code, data, message }) {
+
+    code: number;
+    data?: any;
+    message?: string;
+
+    constructor({ code, data, message }: {
+        code: number,
+        data?: any,
+        message?: string
+    }) {
         this.code = code
         if (data) {
             this.data = data
@@ -19,7 +28,10 @@ class BasicController {
         })
     }
 
-    errorRes({ code, message }) {
+    errorRes({ code, message }: {
+        code: number,
+        message?: string
+    }) {
         return new ResModel({
             code,
             message
@@ -28,4 +40,4 @@ class BasicController {
 }
 
 
-module.exports = BasicController
+export default BasicController
